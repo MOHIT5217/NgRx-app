@@ -9,12 +9,11 @@ import { PostListComponent } from './post/post-list/post-list.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   {
-    path: 'post', component: PostListComponent, children: [
-      { path: 'add_post', component: PostAddComponent },
-      { path: 'edit_post/:id', component: PostEditComponent },
-    ]
+    path: 'counter', loadChildren: () => import('./counter/counter.module').then((m) => m.CounterModule)
   },
-  { path: 'counter', component: CounterComponent }
+  {
+    path: 'post', loadChildren: () => import('./post/post.module').then((m) => m.PostModule)
+  }
 ];
 
 @NgModule({
