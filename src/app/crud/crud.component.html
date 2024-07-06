@@ -1,0 +1,26 @@
+<div id="app-curd">
+    <p>crud works!</p>
+
+    <label for="name">name</label>
+    <input id="name" #name name="name" type="text">
+    <label for="price">price</label>
+    <input type="number" #price name="price" id="price">
+
+    <button class="buttonSubmit" id="buttonSubmit">Add</button>
+
+    <div>
+        <ul id="uList">
+            <li *ngFor="let item of products">
+                {{item.name}} {{item.getPriceFormat()}}
+                <button (click)="selectRow(item)">Edit</button>
+                <button (click)="deleteRow(item)">Delete</button>
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <ul id="listProduct">
+        </ul>
+    </div>
+
+</div>

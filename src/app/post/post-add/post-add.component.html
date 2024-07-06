@@ -1,0 +1,14 @@
+<h1>Add Post</h1>
+<form [formGroup]="addPostForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label class="form-label" for="title">Title</label>
+        <input class="form-control" type="text" name="title" formControlName="title" id="title">
+        <small class="text-danger">{{getValidationError("title")}}</small>
+    </div>
+    <div>
+        <label class="form-label" for="description">Description</label>
+        <input class="form-control" type="text" name="description" formControlName="description" id="description">
+        <small class="text-danger">{{getValidationError("description")}}</small>
+    </div>
+    <button class="btn btn-primary my-4" type="submit">Add Post</button>
+</form>

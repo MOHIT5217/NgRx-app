@@ -1,0 +1,7 @@
+<p>coustom-count-add works!</p>
+<h1 *ngIf="channelName | async as name">
+    {{name}}
+</h1>
+<input type="text" [(ngModel)]="count">
+<button (click)="onClick()">Add</button>
+<button (click)="changeChannelName()">change Channel Name</button>

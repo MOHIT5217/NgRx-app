@@ -1,0 +1,39 @@
+
+<a class="btn btn-primary" [routerLink]="['/post/add_post']" routerLinkActive="router-link-active" >Add Post</a>
+<div class="row">
+    <div class="col-md-8">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Edit Action</th>
+                    <th>Delete Action</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="posts | async as list">
+                <tr *ngFor="let item of list">
+                    <td>
+                        {{item.id}}
+                    </td>
+                    <td>
+                        {{item.title}}
+                    </td>
+                    <td>
+                        {{item.description}}
+                    </td>
+                    <td>
+                        <a class="btn btn-success" [routerLink]="['edit_post', item.id]" routerLinkActive="router-link-active"  >Update</a>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" *ngIf="item.id" (click)="deletePost(item.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <router-outlet></router-outlet>
+    </div>
+</div>
