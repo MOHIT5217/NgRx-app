@@ -8,14 +8,24 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" [routerLink]="['/']" routerLinkActive="router-link-active">Home</a>
+                    <a class="nav-link active" aria-current="page" [routerLink]="['/']"
+                        routerLinkActive="router-link-active">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/post']" routerLinkActive="router-link-active" >Post</a>
+                    <a class="nav-link" [routerLink]="['/post']" routerLinkActive="router-link-active">Post</a>
                 </li>
-                
+
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="['/counter']" routerLinkActive="router-link-active">Counter</a>
+                </li>
+                <li class="nav-item" *ngIf="!(isAuthenticated$ | async)">
+                    <a class="nav-link" [routerLink]="['auth/login']" routerLinkActive="router-link-active">Login</a>
+                </li>
+                <li class="nav-item" *ngIf="!(isAuthenticated$ | async)">
+                    <a class="nav-link" [routerLink]="['auth/signup']" routerLinkActive="router-link-active">Sign Up</a>
+                </li>
+                <li class="nav-item" *ngIf="(isAuthenticated$ | async)">
+                    <a class="nav-link" (click)="onLogout($event)">Logout</a>
                 </li>
             </ul>
             <form class="d-flex" role="search">

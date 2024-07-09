@@ -1,19 +1,19 @@
-import { counterReducer } from "../counter/state/counter.reducer";
-import { ICounter } from "../counter/state/counter.state";
-import { postReducer } from "../post/post-state/post.reducer";
-import { IPostState } from "../post/post-state/post.state";
+import { SHARED_STATE_NAME } from "../shared-state/shared.seletor";
+import { sharedReducer } from "../shared-state/shared.reducer";
+import { SharedSate } from "../shared-state/shared.state";
+import { AUTH_STATE_NAME } from "../auth/auth-state/auth.selector";
+import { AuthReducer } from "../auth/auth-state/auth.reducer";
 
 export interface IAppState {
-    counter: ICounter;
-    posts : IPostState;
+    [SHARED_STATE_NAME]: SharedSate;
 }
 
 export const initialAppState = {
-    counter: {},
-    posts : {}
+    [SHARED_STATE_NAME]:sharedReducer,
+    [AUTH_STATE_NAME] : AuthReducer
 }
 
 export const appReducer = {
-    counter: counterReducer,
-    posts: postReducer
+    [SHARED_STATE_NAME]: sharedReducer,
+    [AUTH_STATE_NAME] : AuthReducer
 }

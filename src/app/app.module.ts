@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,9 @@ import { environment } from '../environments/environment';
 import { HeaderComponent } from './shared/component/header/header.component';
 import { HomeComponent } from './home/home.component';
 import { appReducer } from './app-state/app.state';
+import { EffectsModule } from '@ngrx/effects';
+import { LoaderComponent } from './shared/component/loader/loader.component';
+import { AuthEffact } from './auth/auth-state/auth.effect';
 
 @NgModule({
   declarations: [
@@ -19,14 +23,17 @@ import { appReducer } from './app-state/app.state';
     HeaderComponent,
     HomeComponent,
     CrudComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     StoreModule.forRoot(appReducer),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([AuthEffact])
   ],
   providers: [],
   bootstrap: [AppComponent]
