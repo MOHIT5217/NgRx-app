@@ -16,19 +16,20 @@ const _AuthReducer = createReducer(initialState,
             user: action.user
         }
     }),
-    on(autoLoginUser,(state)=>{
+    on(autoLoginUser, (state) => {
         return {
             ...state
         }
     }),
-    on(logoutUser, (state)=>{
+    on(logoutUser, (state) => {
         return {
             ...state,
-            user:null
+            user: null
         }
     })
 )
 
 export function AuthReducer(state: any, action: any) {
+    
     return _AuthReducer(state, action)
 }

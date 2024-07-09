@@ -18,13 +18,14 @@ export class AuthEffact {
         return this.action$.pipe(
             ofType(loginStart),
             exhaustMap((action) => {
+
                 return this.authservice.login(action.email, action.password)
                     .pipe(map(data => {
                         this.store.dispatch(loader({ status: false }));
                         this.store.dispatch(getErrorMessage({ errorMessage: '' }));
                         const user = this.authservice.formatUser(data);
                         this.authservice.setUserLocalstorage(user);
-                        return loginSuccess({ user, redirect:true });
+                        return loginSuccess({ user, redirect: true });
                     }),
                         catchError(err => {
                             this.store.dispatch(loader({ status: false }));
@@ -38,20 +39,17 @@ export class AuthEffact {
     });
 
     signup$ = createEffect(() => {
-        console.log("createEffect");
 
         return this.action$.pipe(
             ofType(signupStart),
             exhaustMap((action) => {
-                console.log(action, "Action");
-
                 return this.authservice.signUp(action.email, action.password).pipe(
                     map((data) => {
                         this.store.dispatch(loader({ status: false }));
                         this.store.dispatch(getErrorMessage({ errorMessage: '' }));
                         const user = this.authservice.formatUser(data);
                         this.authservice.setUserLocalstorage(user);
-                        return signupSuccess({ user, redirect:true });
+                        return signupSuccess({ user, redirect: true });
                     }),
                     catchError(err => {
                         this.store.dispatch(loader({ status: false }));
@@ -67,7 +65,7 @@ export class AuthEffact {
         return this.action$.pipe(
             ofType(...[loginSuccess, signupSuccess]),
             tap((action) => {
-                if(action.redirect){
+                if (action.redirect) {
                     this.router.navigate(['/']);
                 }
             })
@@ -80,31 +78,29 @@ export class AuthEffact {
     autoLogin$ = createEffect(() => {
         return this.action$.pipe(
             ofType(autoLoginUser),
-            mergeMap((action) => {
+            mergeMap(() => {
                 const user = this.authservice.getUserLocalstorage();
                 if (user) {
-                    return of(loginSuccess({ user , redirect:false}));
+                    return of(loginSuccess({ user, redirect: false }));
                 } else {
-                    // Handle the case where the user is not found in local storage
-                    // You can dispatch a different action or perform some other logic here
-                    return EMPTY; // or return of(anotherAction());
+                    return EMPTY;
                 }
             })
-        )
+        );
     });
 
-    logOut$ = createEffect(()=>{
+    logOut$ = createEffect(() => {
         return this.action$.pipe(
             ofType(logoutUser),
-            map(()=>{
+            tap(() => {
                 this.authservice.onLogout();
                 this.router.navigate(['auth']);
             })
         )
     },
-    {
-        dispatch: false
-    })
+        {
+            dispatch: false
+        })
 }
 
 

@@ -15,8 +15,6 @@ const _postReducer = createReducer(initialState,
         }
     }),
     on(updatePostSuccess, (state, action) => {
-        console.log(action,"action");
-        
         const posts = state.posts.map(post => {
             return post.id === action.post.id ? action.post : post;
         })
@@ -25,8 +23,8 @@ const _postReducer = createReducer(initialState,
             posts: posts
         }
     }),
-    on(deletePost,(state, action)=>{
-        const posts = state.posts.filter(post=> {
+    on(deletePost, (state, action) => {
+        const posts = state.posts.filter(post => {
             return post.id !== action.id;
         })
         return {
@@ -34,9 +32,7 @@ const _postReducer = createReducer(initialState,
             posts: posts
         }
     }),
-    on(loadPostSucces, (state, action)=>{
-        console.log(state, action);
-        
+    on(loadPostSucces, (state, action) => {
         return {
             ...state,
             posts: action.posts

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +16,7 @@ import { appReducer } from './app-state/app.state';
 import { EffectsModule } from '@ngrx/effects';
 import { LoaderComponent } from './shared/component/loader/loader.component';
 import { AuthEffact } from './auth/auth-state/auth.effect';
+import { AuthTokenInterceptor } from './services/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { AuthEffact } from './auth/auth-state/auth.effect';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([AuthEffact])
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

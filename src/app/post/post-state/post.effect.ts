@@ -16,7 +16,6 @@ export class PostEffect {
         return this.actions$.pipe(
             ofType(loadPost),
             mergeMap((action)=>{
-                console.log(action, "action");
                 return this.postService.getPostData().pipe(
                     map((posts)=>{
                     return loadPostSucces({posts})
@@ -51,7 +50,6 @@ export class PostEffect {
             mergeMap((action)=>{
                 return this.postService.editPost(action.post).pipe(
                     map((data)=>{
-                        console.log(data,"data");
                         return updatePostSuccess({post:action.post})
                     })
                 )

@@ -29,7 +29,6 @@ export class AuthService {
   formatUser(data: AuthResponseData) {
 
     const expirationdate = new Date(new Date().getTime() + +data.expiresIn * 1000);
-    console.log("expirationdate =>", expirationdate);
     const user = new User(data.email, data.idToken, data.localId, expirationdate);
     return user;
   }
@@ -78,8 +77,7 @@ export class AuthService {
   }
 
   errorMessage(key: string) {
-    console.log(key, "key");
-
+    
     switch (key) {
 
       case 'EMAIL_NOT_FOUND':
